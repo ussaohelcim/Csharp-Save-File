@@ -1,8 +1,8 @@
-// Script made by Michel Sousa
 using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-
+using System.Collections;
+using System.Collections.Generic;
 [Serializable]//this will make the class Save serializable
 public class Save
 {
@@ -21,10 +21,10 @@ public class SaveManager
         BinaryFormatter binary = new BinaryFormatter();
 
         try { binary.Serialize(stream, file);}
-        catch (SerializationException e){ throw e;}
+        catch (Exception e){ throw e;}
         finally { stream.Close();}
     }
-    public void LoadFile()
+    public Save LoadFile()
     {
         if(File.Exists(output))
         {//check if file exist and load it
@@ -34,9 +34,9 @@ public class SaveManager
             try
             {
                 BinaryFormatter bin = new BinaryFormatter();
-                file = (Savegame)bin.Deserialize(stream);
+                file = (Save)bin.Deserialize(stream);
             }
-            catch (SerializationException e){ throw e;}
+            catch (Exception e){ throw e;}
             finally{ stream.Close();}
 
             return file;
@@ -44,7 +44,7 @@ public class SaveManager
         else
         {
             //Here you will create a new file
-            Save file = new Savegame();
+            Save file = new Save();
             return file;
         }
     }
