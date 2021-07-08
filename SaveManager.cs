@@ -45,6 +45,7 @@ public class SaveManager
         {
             //Here you will create a new file
             Save file = new Save();
+            SaveFile(file);
             return file;
         }
     }
